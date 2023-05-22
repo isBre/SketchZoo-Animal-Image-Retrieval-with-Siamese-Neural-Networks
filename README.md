@@ -1,4 +1,4 @@
-# SketchZoo-Animal-Image-Retrieval-with-Siamese-Neural-Networks
+# SketchZoo: Animal Image Retrieval with Siamese Neural Networks
 SketchZoo is a state-of-the-art project that utilizes Siamese neural networks for efficient animal image retrieval. With the power of contrastive and triplet loss functions, SketchZoo accurately matches hand-drawn animal sketches to corresponding images. It also provides a user-friendly GUI interface for convenient image retrieval based on sketches
 
 ## Dataset Informations
