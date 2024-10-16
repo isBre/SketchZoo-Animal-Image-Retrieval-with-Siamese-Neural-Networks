@@ -6,11 +6,13 @@ from typing import Tuple
 from EmbeddingSpace import EmbeddingSpace
 
 
-def k_precision(model: Module,
-                  sketches_val_loader: DataLoader,
-                  embedding_space: EmbeddingSpace,
-                  k: int,
-                  device: device) -> Tuple[float, float]:
+def k_precision(
+  model: Module,
+  sketches_val_loader: DataLoader,
+  embedding_space: EmbeddingSpace,
+  k: int,
+  device: device,
+) -> Tuple[float, float]:
     # Corrected Labeled samples
     correct = 0.0
     samples_val = 0
