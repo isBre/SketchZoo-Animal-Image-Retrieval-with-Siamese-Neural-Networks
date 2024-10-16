@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class EarlyStopper:
   """
   Represent an object that is able to tell when the train need to stop.

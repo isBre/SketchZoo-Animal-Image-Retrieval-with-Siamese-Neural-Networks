@@ -2,6 +2,7 @@ import torch
 from torch.nn import Module, Sequential, Linear, ReLU, Conv2d, MaxPool2d, AdaptiveMaxPool2d, Dropout
 from torchvision import models
 
+
 '''
 The input received here is
 (BATCH_SIZE, INPUTS_LEN, CHANNELS = 3, HEIGHT = 256, WIDTH = 256)
