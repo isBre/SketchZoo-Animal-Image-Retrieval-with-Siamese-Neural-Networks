@@ -39,10 +39,22 @@ def training_loop(
       # Start the timer in order to obtain the time needed to train in this epoch
       time_start = timer()
       # Obtain Loss and Accuracy for the train step
-      loss_train, accuracy_train = train(optimizer, model, si_train_loader, 
-                                         loss_func, accuracy_margin, device)
+      loss_train, accuracy_train = train(
+        optimizer=optimizer, 
+        model=model, 
+        dataloader=si_train_loader,
+        loss_func=loss_func,
+        accuracy_margin=accuracy_margin,
+        device=device,
+      )
       # Obtain Loss and Accuracy for the validate step
-      loss_val, accuracy_val = validate(model, si_val_loader, loss_func, accuracy_margin, device)
+      loss_val, accuracy_val = validate(
+          model=model,
+          dataloader=si_val_loader,
+          loss_func=loss_func,
+          accuracy_margin=accuracy_margin,
+          device=device,
+      )
       # Calculate the k-accuracy
       embedding_space = EmbeddingSpace(model, images_dataloader, device)
       k_prec = k_precision(model, sketches_test_loader, embedding_space, k, device)   
@@ -136,7 +148,8 @@ def validate(
   samples_val = 0
   # Loss of the Valuation Set
   loss_val = 0.
-  # IMPORTANT: from now on, since we will introduce batch norm, we have to tell PyTorch if we are training or evaluating our model
+  # IMPORTANT: from now on, since we will introduce batch norm, 
+  # we have to tell PyTorch if we are training or evaluating our model
   model = model.eval()
   # Context-manager that disabled gradient calculation
   with torch.no_grad():
