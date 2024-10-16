@@ -9,7 +9,7 @@ The input received here is
 
 class SiameseNetwork(Module):
 
-    def __init__(self, output : int, backbone: models):
+    def __init__(self, output: int, backbone: models) -> None:
         super(SiameseNetwork, self).__init__()
         self.backbone = backbone
         self.backbone.fc = Sequential (
@@ -20,10 +20,10 @@ class SiameseNetwork(Module):
             Linear(128, output)
         )
 
-    def forward_once(self, x : torch.Tensor):
+    def forward_once(self, x: torch.Tensor):
         return self.backbone(x)
 
-    def forward(self, inputs : torch.Tensor):
+    def forward(self, inputs: torch.Tensor):
         if len(inputs) == 2:
             return torch.stack((self.forward_once(inputs[0]),
                                 self.forward_once(inputs[1])))
