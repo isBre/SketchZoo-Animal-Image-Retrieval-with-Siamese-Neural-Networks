@@ -12,19 +12,21 @@ from EarlyStopper import EarlyStopper
 from Metrics import k_precision
 
 
-def training_loop(num_epochs: int, 
-                  optimizer: optim,
-                  model: Module, 
-                  si_train_loader: DataLoader, 
-                  si_val_loader: DataLoader,
-                  sketches_test_loader: DataLoader,
-                  images_dataloader: DataLoader,
-                  loss_func: loss,
-                  k: int,
-                  device: device,
-                  accuracy_margin: float,
-                  verbose: bool = True,
-                  early_stopping: EarlyStopper = None) -> Dict:
+def training_loop(
+  num_epochs: int, 
+  optimizer: optim,
+  model: Module, 
+  si_train_loader: DataLoader, 
+  si_val_loader: DataLoader,
+  sketches_test_loader: DataLoader,
+  images_dataloader: DataLoader,
+  loss_func: loss,
+  k: int,
+  device: device,
+  accuracy_margin: float,
+  verbose: bool = True,
+  early_stopping: EarlyStopper = None,
+) -> Dict:
     # Start the timer in order to obtain the time needed to entirely train the model
     loop_start = timer()
     train_losses_values = []
@@ -79,12 +81,14 @@ def training_loop(num_epochs: int,
             'k_acc_values' : k_prec,
             'time': time_loop}
 
-def train(optimizer: optim,
-          model: Module,
-          dataloader: DataLoader,
-          loss_func: Callable[[Tensor, Tensor], float],
-          accuracy_margin: float,
-          device: device) -> Tuple[float, float]:
+def train(
+  optimizer: optim,
+  model: Module,
+  dataloader: DataLoader,
+  loss_func: Callable[[Tensor, Tensor], float],
+  accuracy_margin: float,
+  device: device,
+) -> Tuple[float, float]:
     # Initialize Metrics
     correct = 0.0
     samples_train = 0
@@ -119,11 +123,13 @@ def train(optimizer: optim,
     accuracy_training = 100. * correct / samples_train
     return loss_train, accuracy_training
 
-def validate(model: Module,
-             dataloader: DataLoader,
-             loss_func: Callable[[Tensor, Tensor], float],
-             accuracy_margin: float,
-             device: torch.device) -> Tuple[float, float]:
+def validate(
+  model: Module,
+  dataloader: DataLoader,
+  loss_func: Callable[[Tensor, Tensor], float],
+  accuracy_margin: float,
+  device: torch.device,
+) -> Tuple[float, float]:
   # Corrected Labeled samples
   correct = 0
   # Images in the batch
@@ -154,10 +160,12 @@ def validate(model: Module,
   accuracy = 100. * correct / samples_val
   return loss_val, accuracy
 
-def get_correct(outputs: torch.Tensor,
-                labels: torch.Tensor,
-                accuracy_margin: float,
-                device = device) -> float:
+def get_correct(
+  outputs: torch.Tensor,
+  labels: torch.Tensor,
+  accuracy_margin: float,
+  device = device,
+) -> float:
     if len(outputs) == 2:
       distances = F.pairwise_distance(outputs[0], outputs[1]).to(device)
       results = torch.tensor([0 if d < accuracy_margin else 1 for d in distances]).to(device)
