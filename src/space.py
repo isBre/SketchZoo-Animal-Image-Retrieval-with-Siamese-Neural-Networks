@@ -1,3 +1,9 @@
+'''
+SCRIPT DESCRIPTION:
+
+This script is responsible for plotting the embedding space of a model in a 2D space (where EMBEDDING_SIZE = 2).
+'''
+
 import matplotlib.pyplot as plt
 from EmbeddingSpace import *
 from torchvision import models
@@ -6,18 +12,11 @@ from torchvision.datasets import ImageFolder
 from torch.utils.data import random_split
 from Networks import SiameseNetwork
 
-'''
-SCRIPT DESCRIPTION:
-
-This script is responsible for plotting the embedding space of a model in a 2D space (where EMBEDDING_SIZE = 2).
-'''
 
 dataset_paths = {'mini' : ["../Mini Dataset/photo", "../Mini Dataset/sketch"], 
                  'full' : ["../Full Dataset/256x256/photo", "../Full Dataset/256x256/sketch"]}
 
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
-
 
 
 # ====================================
