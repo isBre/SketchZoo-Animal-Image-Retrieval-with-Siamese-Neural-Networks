@@ -1,3 +1,11 @@
+
+'''
+SCRIPT DESCRIPTION:
+
+This script is responsible for training a neural network that performs base information retrieval using sketches. 
+Afterwards, you can modify certain configurations.
+'''
+
 import torch
 from torch.optim import Adam
 from torch.utils.data import DataLoader 
@@ -12,18 +20,9 @@ from Losses import *
 from EarlyStopper import *
 from TrainingFunctions import training_loop
 
-'''
-SCRIPT DESCRIPTION:
-
-This script is responsible for training a neural network that performs base information retrieval using sketches. 
-Afterwards, you can modify certain configurations.
-'''
 
 dataset_paths = {'mini' : ["../Mini Dataset/photo", "../Mini Dataset/sketch"], 
                  'full' : ["../Full Dataset/256x256/photo", "../Full Dataset/256x256/sketch"]}
-
-
-
 
 
 # ====================================
@@ -87,9 +86,6 @@ lr = 1e-4
 
 #Pick a number of Epochs
 num_epochs = 500
-
-
-
 
 
 # ====================================
