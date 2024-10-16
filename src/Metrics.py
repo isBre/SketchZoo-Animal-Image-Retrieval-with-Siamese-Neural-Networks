@@ -26,9 +26,11 @@ def k_precision(
       for idx_batch, (sketches, labels) in enumerate(sketches_val_loader):
         sketches, labels = sketches.to(device), labels.to(device)
         distances, topk_indexes = embedding_space.top_k_batch(sketches, k)
-        correct += torch.sum(torch.tensor([embedding_space.classes[idx] == labels[i] 
-                                           for list_idx, i in zip(topk_indexes, list(range(len(topk_indexes)))) 
-                                           for idx in list_idx]).float()) / k
+        for list_idx, i in zip(topk_indexes, range(len(topk_indexes))):
+            # Check if the predicted class matches the actual label
+            correct_predictions += sum(embedding_space.classes[idx] == labels[i] for idx in list_idx)
+        # Convert to a tensor, compute the mean over k, and update the correct count
+        correct += torch.tensor(correct_predictions).float() / k
         samples_val += len(sketches)
     accuracy = 100. * correct / samples_val
     return accuracy
