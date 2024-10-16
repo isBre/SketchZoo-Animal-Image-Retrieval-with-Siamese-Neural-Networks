@@ -6,13 +6,13 @@ class EarlyStopper:
   Needs to be put inside the train and keep updated, when early_stop returns
   true we need to stop the train
   """
-  def __init__(self, patience : int = 1, min_delta : int = 0):
+  def __init__(self, patience: int = 1, min_delta: int = 0):
       self.patience = patience
       self.min_delta = min_delta
       self.counter = 0
       self.min_validation_loss = np.inf
 
-  def early_stop(self, validation_loss : float) -> bool:
+  def early_stop(self, validation_loss: float) -> bool:
       if validation_loss < self.min_validation_loss:
           self.min_validation_loss = validation_loss
           self.counter = 0
