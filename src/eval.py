@@ -1,3 +1,9 @@
+'''
+SCRIPT DESCRIPTION:
+This script is used to print a chart that compares various k-precision values of 
+different models using a bar graph.
+'''
+
 from EmbeddingSpace import *
 from torchvision import models
 from Metrics import k_precision
@@ -9,11 +15,6 @@ import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader 
 from torchvision.datasets import ImageFolder
 
-'''
-SCRIPT DESCRIPTION:
-
-This script is used to print a chart that compares various k-precision values of different models using a bar graph.
-'''
 
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(f"We're using {DEVICE}")
@@ -23,9 +24,6 @@ workers = 0
 
 dataset_paths = {'mini' : ["../Mini Dataset/photo", "../Mini Dataset/sketch"], 
                  'full' : ["../Full Dataset/256x256/photo", "../Full Dataset/256x256/sketch"]}
-
-
-
 
 
 # ====================================
@@ -51,9 +49,6 @@ dict={0: {'backbone' : models.resnet18(), 'embedding_size' : 16, 'weight_path' :
       3: {'backbone' : models.resnet101(), 'embedding_size' : 16, 'weight_path' : '../weights/full-16-contrastive-resnet101.pth'}}
 
 
-
-
-
 # ====================================
 #                CODE
 # ====================================
@@ -69,7 +64,6 @@ sketches_ds = ImageFolder(SKETCHES_DATASET_PATH, transform = transforms.ToTensor
 sketches_loader = DataLoader(sketches_ds, shuffle = False, num_workers = workers, pin_memory = True, batch_size = BATCH_SIZE)
 sketches_train_ds, sketches_val_ds, sketches_k_acc = random_split(sketches_ds, (0.8, 0.15, 0.05), generator = generator1)
 small_sketches_loader = DataLoader(sketches_k_acc, shuffle = False, num_workers = workers, pin_memory = True, batch_size = BATCH_SIZE)
-
 
 results = []
 

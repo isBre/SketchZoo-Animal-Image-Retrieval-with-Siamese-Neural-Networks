@@ -3,22 +3,22 @@ from torch.nn import Module
 from torch.nn import Module
 import torch.nn.functional as F
 
+
 class ContrastiveLoss(Module):
 
-    def __init__(self, margin : int):
+    def __init__(self, margin: int) -> None:
         super(ContrastiveLoss, self).__init__()
         self.margin = margin
 
     def forward(self, outputs : torch.Tensor, label : torch.Tensor):
-
         if outputs.size()[0] == 2:
-      
             euclidean_distance = F.pairwise_distance(outputs[0], outputs[1], keepdim = True)
-            loss_contrastive = torch.mean((1-label) * torch.pow(euclidean_distance, 2) +
-                                            (label) * torch.pow(torch.clamp(self.margin - euclidean_distance, min = 0.0), 2))
-                
+            loss_contrastive = torch.mean(
+                (1-label) * torch.pow(euclidean_distance, 2) +
+                (label) * torch.pow(torch.clamp(self.margin - euclidean_distance, min = 0.0), 
+                2)
+            )
             return loss_contrastive
-      
         raise ValueError('This is the Contrastive Loss but more (or less) than 2 tensors were unpacked')
 
 
